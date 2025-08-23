@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Blogs</title>
+  <link rel="stylesheet" href="/myThings/frontend/css/blogs.css" />
+</head>
+<body>
+  <nav class="nav-container">
+    <img src="/myThings/frontend/img/Copilot_20250815_165012.png" alt="Campus Logo" class="logo" />
+    <div class="nav-btns">
+      <form id="search">
+        <input type="text" id="search-bar" placeholder="Search by author..." />
+      </form>
+      <button id="create-blog">✍️ New Blog</button>
+      <button id="my-blogs">📚 My Blogs</button>
+    </div>
+  </nav>
+
+  <section class="blog-section">
+    <h1 class="page-title">📖 Latest Campus Blogs</h1>
+    <main id="main-tag"></main>
+    <div id="empty-state" class="empty-message" style="display: none;">
+      <p>No blogs found. Try searching for a different author or create a new blog!</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Made with ❤️ by Mohit | Campus Marketplace © 2025</p>
+  </footer>
+
+  <script src="/myThings/frontend/js/blogs.js"></script>
+</body>
+</html>

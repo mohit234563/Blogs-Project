@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blogs</title>
+    <link rel="stylesheet" href="/myThings/frontend/css/myBlogs.css">
+</head>
+<body>
+    <nav class="nav-container">
+        <img src="/myThings/frontend/img/Copilot_20250815_165012.png " alt="logo" width="120px" height="50px">
+        <div class="nav-btns">
+            <!-- <input type="text" id="search-bar" placeholder="search author"> -->
+            <button id="home-btn">Home</button>
+            <button id="logout-btn">Logout</button>
+            <!-- <button id="settings-btn">Setting</button> -->
+        </div>
+    </nav>
+    <main id="main-tag">
+      
+    </main>
+    <script >
+const api = 'http://localhost:3001/api/students';
+
+// Decode JWT to extract user ID
+function decodeJWT(token) {
+  try {
+    const payload = token.split('.')[1];
+    const decoded = JSON.parse(atob(payload));
+    return decoded;
+  } catch (err) {
+    console.error("Invalid token", err);
+    return null;
+  }
+}
+
+// Render a single blog card
+function renderBlogCard(blog) {
+  return `
+    <div class="blog-card" data-id="${blog.id}">
+      <div class="card-header">
+        <h2 class="blog-title">${blog.title}</h2>
+        <p class="blog-desc">${blog.description}</p>
+      </div>
+      <div class="card-body">
+        <p class="blog-content">${blog.content}</p>
+      </div>
+      <div class="card-meta">
+        <span class="author">${blog.author}</span>
+        <span class="date">${new Date(blog.created_at).toLocaleDateString()}</span>
+      </div>
+      
+    </div>
+  `;
+}
+
+// Fetch and render blogs
+async function loadBlogs() {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert("Please log in first.");
+    window.location.href = 'login.html';
+    return;
+  }
+
+  const decoded = decodeJWT(token);
+  if (!decoded || !decoded.id) {
+    alert("Invalid token. Please log in again.");
+    localStorage.removeItem('token');
+    window.location.href = 'login.html';
+    return;
+  }
+
+  try {
+    const res = await fetch(`${api}/MyBlog/${decoded.id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error("Failed to fetch blogs");
+
+    const data = await res.json();
+    const main = document.getElementById('main-tag');
+    main.innerHTML = '';
+    if(!data[0]){
+      alert("You haven't created any blogs.");
+      window.location.href='blogs.html';
+    }
+    data.forEach(blog => {
+      main.innerHTML += renderBlogCard(blog);
+    });
+
+    attachEventListeners();
+  } catch (err) {
+    console.error(err);
+    document.getElementById('main-tag').innerHTML = "<p>Unable to load blogs. Please try again later.</p>";
+  }
+}
+
+// Attach listeners to like and comment buttons
+function attachEventListeners() {
+  document.querySelectorAll('.like-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.blog-card');
+      const countSpan = card.querySelector('.like-count');
+      let count = parseInt(countSpan.textContent);
+      countSpan.textContent = ++count;
+      // TODO: Send like to backend
+    });
+  });
+
+  document.querySelectorAll('.comment-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.blog-card');
+      const input = card.querySelector('.comment-input');
+      const comment = input.value.trim();
+      if (comment) {
+        // TODO: Send comment to backend
+        alert(`Comment posted: ${comment}`);
+        input.value = '';
+      }
+    });
+  });
+}
+
+// Navigation buttons
+document.getElementById('home-btn').addEventListener('click', () => {
+  window.location.href = 'index.html';
+});
+
+document.getElementById('logout-btn').addEventListener('click', (e) => {
+  e.preventDefault();
+  if (!localStorage.getItem('token')) {
+    alert("You must be logged in to access this page.");
+    window.location.href = 'login.html';
+  } else {
+    localStorage.removeItem('token');
+    alert("Logged out!");
+    window.location.href = 'index.html';
+  }
+});
+
+// Load blogs on page load
+window.onload = loadBlogs;
+
+    </script>
+</body>
+</html>

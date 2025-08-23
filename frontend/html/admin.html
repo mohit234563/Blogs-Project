@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/myThings/frontend/css/admin.css">
+</head>
+<body>
+   
+    <nav class="nav-container">
+        <img src="/myThings/frontend/img/Copilot_20250815_165012.png " alt="logo" width="120px" height="50px">
+        <div class="nav-btns">
+            <!-- <form id="search">
+            <input type="text" id="search-bar" placeholder="search author">
+            </form> -->
+            <button id="home-btn">Home</button>
+            <button id="logout-btn">Logout</button>
+            <!-- <div class="dropdown">
+                
+            <button id="settings-btn">Settings</button>
+            
+            <div class="dropdown-content" id="settings-dropdown">
+                <a href="admin.html" id="admin-button">Admin</a>
+                <a href="#">Contact us</a>
+                <a href="#">Help</a>
+            </div>
+        </div> -->
+
+        </div>
+    </nav>
+    <main>
+        <h2>Student Data</h2>
+        <div class="search-Bar">
+            <input type="text" id="search-bar" placeholder="Search Student By Name...">
+            <button id="find-student">Find</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>College</th>
+                    <th>Branch</th>
+                    <th>Email</th>
+                    <th>Contanct No.</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody id="content"></tbody>
+        </table>
+    </main>
+    <script src="/myThings/frontend/js/admin.js"></script>
+</body>
+</html>

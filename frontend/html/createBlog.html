@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New blog</title>
+    <link rel="stylesheet" href="/myThings/frontend/css/createBlog.css">
+</head>
+<body>
+   
+    <nav class="nav-container">
+        <img src="/myThings/frontend/img/Copilot_20250815_165012.png " alt="logo" width="120px" height="50px">
+        <div class="nav-btns">
+            <!-- <form id="search">
+            <input type="text" id="search-bar" placeholder="search author">
+            </form> -->
+           <button id="home-btn">Home</button>
+            <button id="blog-btn">Blogs</button>
+            <!-- <div class="dropdown">
+                
+            <button id="settings-btn">Settings</button>
+            
+            <div class="dropdown-content" id="settings-dropdown">
+                <a href="admin.html" id="admin-button">Admin</a>
+                <a href="#">Contact us</a>
+                <a href="#">Help</a>
+            </div>
+        </div> -->
+
+        </div>
+    </nav>
+    <main>
+        <form id="blog-form">
+            <h2>Create New Blog</h2>
+            <input type="text" id="blog-title" placeholder="Title">
+            <input type="text" id="description" placeholder="Description">
+            <textarea name="content" id="blog-content" placeholder="Enter the content here..." rows="10"
+            cols="50"></textarea>
+            <button id="submit">Create blog</button>
+        </form>
+    </main>
+    
+    <script>
+        const url='http://localhost:3001/api/students';
+        document.getElementById('home-btn')?.addEventListener('click',()=>{
+        window.location.href='index.html'
+        })
+        document.getElementById('blog-btn')?.addEventListener('click',()=>{
+        window.location.href='blogs.html'
+        })
+        document.getElementById('blog-form')?.addEventListener('submit',async(e)=>{
+            e.preventDefault();
+            const title=document.getElementById('blog-title').value;
+            const description=document.getElementById('description').value;
+            const content=document.getElementById('blog-content').value;
+            const token=localStorage.getItem('token');
+            if(!token){
+                alert("login first");
+                return;
+            }
+            if(title.trim().length===0||content.trim().length===0||description.trim().length===0){
+                alert("all fields are required!");
+                return;
+            }
+            const result=await fetch(`${url}/createBlog`,{
+                method:'POST',
+                headers:{"content-type":"application/json",
+                    "Authorization":`Bearer ${token}`
+                },
+                body:JSON.stringify({title,content,description})
+            })
+            const data=await result.json();
+            const res=data.message||data.error;
+            alert(res);
+            window.location.href='blogs.html';
+        })
+    </script>
+</body>
+</html>
