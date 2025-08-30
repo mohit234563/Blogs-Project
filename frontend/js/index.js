@@ -1,5 +1,5 @@
 // API base URL
-const api = "https://your-backend-url.onrender.com";
+const api ="http://localhost:3001/api/students";
 
 // Run on page load
 window.onload = async () => {

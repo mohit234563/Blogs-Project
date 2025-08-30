@@ -95,7 +95,7 @@
 // }
 // })
 // window.onload=getAll;
-const api = "https://your-backend-url.onrender.com";
+const api = "http://localhost:3001/api/students";
 
 window.onload = () => {
   getAllBlogs();

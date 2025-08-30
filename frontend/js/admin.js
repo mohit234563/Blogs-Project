@@ -1,4 +1,4 @@
-const api="https://your-backend-url.onrender.com";
+const api="http://localhost:3001/api/students";
 
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('home-btn')?.addEventListener('click',()=>{
