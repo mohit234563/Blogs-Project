@@ -71,7 +71,7 @@ document.getElementById('search')?.addEventListener('submit', async (e) => {
   }
 
   try {
-    const res = await fetch(`${api}/blogs/${author}`);
+    const res = await fetch(`${api}/blogs/search/${author}`);
     const data = await res.json();
     if (!Array.isArray(data) || data.length === 0) {
       alert("Oops! No blogs found for this author.");

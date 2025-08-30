@@ -11,7 +11,7 @@ router.post('/login',login);
 router.post('/createBlog',verifyToken,createBlog);
 router.get('/MyBlog/:id',verifyToken,myBlogs);
 router.get('/blogs/allBlogs',getBlogs);
-router.get('/blogs/:author',searchByAuthor);
+router.get('/blogs/search/:author',searchByAuthor);
 router.post('/blogs/likes/:b_id',verifyToken,blogLike);
 router.get('/blogs/LikesCount/:b_id',getLikes);
 router.post('/comments/:id',verifyToken, addComment);
