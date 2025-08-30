@@ -4,7 +4,10 @@ const app=express();
 require('dotenv').config();
 const router=require('./routes/studentsRouter');
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "https://mohit234563.github.io/Blogs-Project/",
+  credentials: true
+}));
 app.get("/", (req, res) => {
   res.send("Backend is live 🚀");
 });
