@@ -8,12 +8,12 @@ app.use(cors({
   origin: "https://mohit234563.github.io/Blogs-Project",
   credentials: true
 }));
-app.get("/", (req, res) => {
-  res.send("Backend is live 🚀");
-});
+// app.get("/", (req, res) => {
+//   res.send("Backend is live 🚀");
+// });
 
 app.use('/api/students',router);
-const PORT=process.env.PORT;
+const PORT=process.env.PORT||3001;
 app.listen(PORT,()=>{
     console.log(`server is running on the port ${PORT}`);
 })
